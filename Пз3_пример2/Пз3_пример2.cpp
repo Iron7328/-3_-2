@@ -2,12 +2,79 @@
 //
 
 #include <iostream>
+#define length 5
+#define NAME(var) #var
+using namespace std;
 
+void enter_arr(int arr[], const char* name);
+void analytics_links(int arr[], const char* name, int& max, int& max_pos, int& min, int& min_pos);
+void analytics_pointers(int arr[], const char* name, int* max, int* max_pos, int* min, int* min_pos);
+void loop_func(int X[], const char* name, int max, int max_pos, int min, int min_pos);
 int main()
 {
-    std::cout << "Hello World!\n";
+    setlocale(LC_ALL, "ru");
+    int X[length], Y[length], Z[length], max = 0, max_pos = 0, min = 0, min_pos = 0;
+    loop_func(X, NAME(X), max, max_pos, min, min_pos);
+    loop_func(Y, NAME(Y), max, max_pos, min, min_pos);
+    loop_func(Z, NAME(Z), max, max_pos, min, min_pos);
+    return 0;
 }
-
+void loop_func(int X[], const char* name, int max, int max_pos, int min, int min_pos)
+{
+    enter_arr(X, name);
+    analytics_links(X, name, max, max_pos, min, min_pos);
+    analytics_pointers(X, name, &max, &max_pos, &min, &min_pos);
+}
+void enter_arr(int arr[], const char* name)
+{
+    cout << "Enter the array «" << name << "»: ";
+    for (int i = 0; i < length; i++)
+    {
+        cin >> arr[i];
+    }
+}
+void analytics_links(int arr[], const char* name, int& max, int& max_pos, int& min, int& min_pos)
+{
+    max = arr[0];
+    max_pos = 0;
+    min = arr[0];
+    min_pos = 0;
+    for (int i = 0; i < length; i++)
+    {
+        if (max < arr[i])
+        {
+            max = arr[i];
+            max_pos = i;
+        }
+        if (min > arr[i])
+        {
+            min = arr[i];
+            min_pos = i;
+        }
+    }
+    cout << "For array «" << name << "»: max = " << max << ", stands on " << max_pos << " place in array; min = " << min << ", stands on " << min_pos << " place in array.\n";
+}
+void analytics_pointers(int arr[], const char* name, int* max, int* max_pos, int* min, int* min_pos)
+{
+    *max = arr[0];
+    *max_pos = 0;
+    *min = arr[0];
+    *min_pos = 0;
+    for (int i = 0; i < length; i++)
+    {
+        if (*max < arr[i])
+        {
+            *max = arr[i];
+            *max_pos = i;
+        }
+        if (*min > arr[i])
+        {
+            *min = arr[i];
+            *min_pos = i;
+        }
+    }
+    cout << "For array «" << name << "»: max = " << *max << ", stands on " << *max_pos << " place in array; min = " << *min << ", stands on " << *min_pos << " place in array.\n";
+}
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 
